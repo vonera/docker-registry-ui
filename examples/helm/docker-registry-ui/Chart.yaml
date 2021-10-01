@@ -1,11 +1,16 @@
-apiVersion: v1
-appVersion: "1.2.1"
-description: The simplest and most complete UI for your private registry
+apiVersion: v2
 name: docker-registry-ui
+description: NN Dimitri Recreated, simplified chart for Registry UI (Joxit/docker-registry-ui/examples/helm/docker-registry-ui/)
+
+type: application
+
+version: 0.1.0
+
+appVersion: "2.0"
+
 home: https://github.com/Joxit/docker-registry-ui
 keywords:
 - docker
 - registry
 sources:
 - https://github.com/Joxit/docker-registry-ui
-version: 0.1.0

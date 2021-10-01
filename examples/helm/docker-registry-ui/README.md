@@ -3,29 +3,21 @@
 [docker-registry-ui](https://joxit.dev/docker-registry-ui/) is the simplest and most complete UI for your private registry!
 
 
-## TL;DR;
-
-```bash
-$ helm install .
-```
-
 ## Introduction
 
 This chart bootstraps a [docker-registry-ui](https://joxit.dev/docker-registry-ui/) deployment on a [Kubernetes](http://kubernetes.io) cluster using the [Helm](https://helm.sh) package manager.
 
-It also may deploy the [docker registry](https://docs.docker.com/registry/) if you havent have one already.
-
 ## Prerequisites
 
-- Kubernetes 1.9+ with Beta APIs enabled
-- PV provisioner support in the underlying infrastructure
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `my-release` and registry at `https://registry.example.com`:
 
 ```bash
-$ helm update --install my-release .
+$ helm update --install my-release \
+  --set registry.url=https://registry.example.com \
+    .
 ```
 
 The command deploys docker-registry-ui on the Kubernetes cluster in the default configuration. The [configuration](#configuration) section lists the parameters that can be configured during installation.
@@ -54,7 +46,7 @@ The following table lists the configurable parameters of the Redmine chart and t
 | `ui.replicaCount`                 | Number of replicas to start              | `1`                                                     |
 | `ui.image.registry`               | registry to pull the docker-registry-ui image from | `docker.io`                                   |
 | `ui.image.repository`             | docker-registry-ui image name            | `joxit/docker-registry-ui`                              |
-| `ui.image.tag`                    | docker-registry-ui image tag (change to latest to have multi registry support) | `static`          |
+| `ui.image.tag`                    | docker-registry-ui image tag             | `2.0`          |
 | `ui.image.pullPolicy`             | docker-registry-ui image pull policy     | `Always`                                                |
 | `ui.probe.liveness`               | Ask kubernetes to check the service port for liveness | `true`                                     |
 | `ui.probe.readyness `             | Ask kubernetes to check the service port for readyness | `true`                                    |
@@ -62,27 +54,13 @@ The following table lists the configurable parameters of the Redmine chart and t
 | `ui.service.port`                 | Service exposed port                     | `80`                                                    |
 | `ui.ingress.enabled`              | Create an ingress for docker-regstry-ui  | `false`                                                 |
 | `registry.external` 		    | Use an already available registry        | `false`						 |
-| `registry.url` 		    | URL of the existing registry             | `http://localhost:5000`				 |
-| `registry.replicaCount`           | Number of replicas to start              | `1`                                                     |
-| `registry.image.registry`         | registry to pull the docker-registry image from | `docker.io`                                      |
-| `registry.image.repository`       | docker-registry-ui image name            | `registry`                              		 |
-| `registry.image.tag`              | docker-registry-ui image tag             | `2.6.2`           					 |
-| `registry.image.pullPolicy`       | docker-registry-ui image pull policy     | `Always`                                                |
-| `registry.probe.liveness`         | Ask kubernetes to check the service port for liveness | `true`                                     |
-| `registry.probe.readyness `       | Ask kubernetes to check the service port for readyness | `true`                                    |
-| `registry.persistence.enabled`    | Enable persistence using PVC for the registry | `false`                                            |
-| `registry.persistence.storageClass` | PVC Storage Class 		       | `-`		                                         |
-| `registry.persistence.size`       | PVC Storage Request size 		       | `1Gi`		                                         |
-| `registry.service.type`           | Desired service type                     | `ClusterIP`                                             |
-| `registry.service.port`           | Service exposed port                     | `5000`                                                  |
-| `registry.ingress.enabled`        | Create an ingress for the regstry        | `false`                                                 |
+| `registry.url` 		    | URL of the existing registry (Change )            | `https://example.com:5000`				 |
 
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`. For example,
 
 ```bash
 $ helm upgrade --install my-release \
-  --set registry.external=true \
   --set registry.url=http://registry.example.com:5000 \
     .
 ```
